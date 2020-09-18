@@ -98,7 +98,7 @@ C:\Users\Hp\source\Aplicada2\Ejercicio1-2020-03\bin\Debug\netcoreapp3.1\Microsof
 C:\Users\Hp\source\Aplicada2\Ejercicio1-2020-03\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.Web.dll
 C:\Users\Hp\source\Aplicada2\Ejercicio1-2020-03\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Metadata.dll
 C:\Users\Hp\source\Aplicada2\Ejercicio1-2020-03\bin\Debug\netcoreapp3.1\Microsoft.JSInterop.dll
-C:\Users\Hp\source\Aplicada2\Ejercicio1-2020-03\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\EditorEstudiantes.razor.g.cs
 C:\Users\Hp\source\Aplicada2\Ejercicio1-2020-03\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\FieldsEstudiante.razor.g.cs
-C:\Users\Hp\source\Aplicada2\Ejercicio1-2020-03\obj\Debug\netcoreapp3.1\Razor\Shared\EditorEstudiantes.razor.g.cs
 C:\Users\Hp\source\Aplicada2\Ejercicio1-2020-03\obj\Debug\netcoreapp3.1\Razor\Shared\FieldsEstudiante.razor.g.cs
+C:\Users\Hp\source\Aplicada2\Ejercicio1-2020-03\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\DialogoEditorEstudiantes.razor.g.cs
+C:\Users\Hp\source\Aplicada2\Ejercicio1-2020-03\obj\Debug\netcoreapp3.1\Razor\Shared\DialogoEditorEstudiantes.razor.g.cs

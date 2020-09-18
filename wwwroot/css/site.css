@@ -317,3 +317,11 @@ app {
     margin: 0px 20px;
     border-radius: 25px;
 }
+
+.filter {
+    margin-left: 3rem;
+}
+
+.filter select {
+    width: 200px
+}

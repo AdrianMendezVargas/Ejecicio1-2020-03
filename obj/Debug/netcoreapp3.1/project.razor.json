@@ -177,6 +177,59 @@
         }
       },
       {
+        "HashCode": 1597308525,
+        "Kind": "Components.Component",
+        "Name": "Ejercicio1_2020_03.Shared.FieldsEstudiante",
+        "AssemblyName": "Ejercicio1-2020-03",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "FieldsEstudiante"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Estudiante",
+            "TypeName": "Ejercicio1_2020_03.Models.Estudiante",
+            "Metadata": {
+              "Common.PropertyName": "Estudiante"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Ejercicio1_2020_03.Shared.FieldsEstudiante"
+        }
+      },
+      {
+        "HashCode": 192027370,
+        "Kind": "Components.Component",
+        "Name": "Ejercicio1_2020_03.Shared.FieldsEstudiante",
+        "AssemblyName": "Ejercicio1-2020-03",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Ejercicio1_2020_03.Shared.FieldsEstudiante"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Estudiante",
+            "TypeName": "Ejercicio1_2020_03.Models.Estudiante",
+            "Metadata": {
+              "Common.PropertyName": "Estudiante"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Ejercicio1_2020_03.Shared.FieldsEstudiante",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
         "HashCode": 583495832,
         "Kind": "Components.Component",
         "Name": "Ejercicio1_2020_03.Shared.MainLayout",
@@ -355,92 +408,6 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Ejercicio1_2020_03.Shared.SurveyPrompt",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": 1597308525,
-        "Kind": "Components.Component",
-        "Name": "Ejercicio1_2020_03.Shared.FieldsEstudiante",
-        "AssemblyName": "Ejercicio1-2020-03",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "FieldsEstudiante"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Estudiante",
-            "TypeName": "Ejercicio1_2020_03.Models.Estudiante",
-            "Metadata": {
-              "Common.PropertyName": "Estudiante"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Ejercicio1_2020_03.Shared.FieldsEstudiante"
-        }
-      },
-      {
-        "HashCode": 192027370,
-        "Kind": "Components.Component",
-        "Name": "Ejercicio1_2020_03.Shared.FieldsEstudiante",
-        "AssemblyName": "Ejercicio1-2020-03",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Ejercicio1_2020_03.Shared.FieldsEstudiante"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Estudiante",
-            "TypeName": "Ejercicio1_2020_03.Models.Estudiante",
-            "Metadata": {
-              "Common.PropertyName": "Estudiante"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Ejercicio1_2020_03.Shared.FieldsEstudiante",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": -1995481130,
-        "Kind": "Components.Component",
-        "Name": "Ejercicio1_2020_03.Shared.EditorEstudiantes",
-        "AssemblyName": "Ejercicio1-2020-03",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "EditorEstudiantes"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Ejercicio1_2020_03.Shared.EditorEstudiantes"
-        }
-      },
-      {
-        "HashCode": 477242338,
-        "Kind": "Components.Component",
-        "Name": "Ejercicio1_2020_03.Shared.EditorEstudiantes",
-        "AssemblyName": "Ejercicio1-2020-03",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Ejercicio1_2020_03.Shared.EditorEstudiantes"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Ejercicio1_2020_03.Shared.EditorEstudiantes",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
