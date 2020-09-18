@@ -15,7 +15,7 @@
                 <button type="button" class="btn btn-dark" @onclick="OnClose">Cancelar</button>
                 <button type="button" disabled="@(!EsNuevoEstudiante)" class="btn btn-warning" @onclick="Nuevo">Nuevo</button>
                 <input type="submit" class="btn btn-success" value="Guardar" />
-                <button type="button" class="btn btn-danger" @onclick="Eliminar">Eliminar</button>
+                <button type="button" disabled="@(EsNuevoEstudiante)" class="btn btn-danger" @onclick="Eliminar">Eliminar</button>
             </div>
             <DataAnnotationsValidator />
         </EditForm>
