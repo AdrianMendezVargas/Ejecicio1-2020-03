@@ -31,30 +31,30 @@
     void Nuevo() {
         estudiante = new Estudiante();
     }
-    void Guardar() {
+    async Task Guardar() {
 
 
         bool guardo;
 
-        guardo = EstudiantesBLL.Guardar(estudiante);
+        guardo = await EstudiantesBLL.Guardar(estudiante);
 
         if (guardo) {
             toast.ShowSuccess("Guardado ");
             Nuevo();
-            OnClose.InvokeAsync(new { });
+            await OnClose.InvokeAsync(new { });
         } else
             toast.ShowError("Error al guardar");
     }
 
-    public void Eliminar() {
+    async Task Eliminar() {
         bool eliminado;
 
-        eliminado = EstudiantesBLL.Eliminar(estudiante.EstudianteId);
+        eliminado = await EstudiantesBLL.Eliminar(estudiante.EstudianteId);
 
         if (eliminado) {
             toast.ShowSuccess("Eliminado");
             Nuevo();
-            OnClose.InvokeAsync(new { });
+            await OnClose.InvokeAsync(new { });
         } else
             toast.ShowError("Error al eliminar");
     }

@@ -11,46 +11,48 @@ namespace Ejercicio1_2020_03.BLL {
 
     public class EstudiantesBLL {
 
-        public static bool Guardar(Estudiante estudiante) {
-            if (!Existe(estudiante.EstudianteId))
-                return Insertar(estudiante);
+        public async static Task<bool> Guardar(Estudiante estudiante) {
+            if (!await Existe(estudiante.EstudianteId))
+                return await Insertar(estudiante);
             else
-                return Modificar(estudiante);
+                return await Modificar(estudiante);
         }
 
-        private static bool Insertar(Estudiante estudiante) {
+        private async static Task<bool> Insertar(Estudiante estudiante) {
             bool paso = false;
             Contexto contexto = new Contexto();
 
             try {
                 contexto.Estudiantes.Add(estudiante);
-                paso = contexto.SaveChanges() > 0;
+                paso = await contexto.SaveChangesAsync() > 0;
             } catch (Exception) {
                 throw;
             } finally {
-                contexto.Dispose();
+                await contexto.DisposeAsync();
             }
 
             return paso;
         }
 
-        public static bool Modificar(Estudiante estudiante) {
+        public async static Task<bool> Modificar(Estudiante estudiante) {
             bool paso = false;
             Contexto contexto = new Contexto();
 
             try {
                 contexto.Entry(estudiante).State = EntityState.Modified;
-                paso = contexto.SaveChanges() > 0;
-                Console.WriteLine("y modificado correctamente");
+
+                paso = await contexto.SaveChangesAsync() > 0;
+
             } catch (Exception) {
+
                 throw;
             } finally {
-                contexto.Dispose();
+                await contexto.DisposeAsync();
             }
             return paso;
         }
 
-        public static bool Eliminar(int id) {
+        public async static Task<bool> Eliminar(int id) {
             bool paso = false;
             Contexto contexto = new Contexto();
             try {
@@ -58,63 +60,64 @@ namespace Ejercicio1_2020_03.BLL {
 
                 if (estudiante != null) {
                     contexto.Estudiantes.Remove(estudiante);
-                    paso = contexto.SaveChanges() > 0;
+                    paso = await contexto.SaveChangesAsync() > 0;
                 }
             } catch (Exception) {
                 throw;
             } finally {
-                contexto.Dispose();
+                await contexto.DisposeAsync();
             }
 
             return paso;
         }
 
-        public static Estudiante Buscar(int id) {
+        public async static Task<Estudiante> Buscar(int id) {
             Contexto contexto = new Contexto();
             Estudiante estudiante;
 
             try {
-                estudiante = contexto.Estudiantes
+                estudiante = await contexto.Estudiantes
                     .Where(e => e.EstudianteId == id)
-                    .FirstOrDefault();
+                    .FirstOrDefaultAsync();
             } catch (Exception) {
                 throw;
             } finally {
-                contexto.Dispose();
+                await contexto.DisposeAsync();
             }
 
             return estudiante;
         }
 
 
-        public static bool Existe(int id) {
+        public async static Task<bool> Existe(int id) {
             Contexto contexto = new Contexto();
             bool encontrado = false;
 
             try {
-                encontrado = contexto.Estudiantes.Any(e => e.EstudianteId == id);
+                encontrado = await contexto.Estudiantes.AnyAsync(e => e.EstudianteId == id);
             } catch (Exception) {
                 throw;
             } finally {
-                contexto.Dispose();
+                await contexto.DisposeAsync();
             }
 
             return encontrado;
         }
 
-        public static List<Estudiante> GetEstudiantes() {
+        public async static Task<List<Estudiante>> GetEstudiantes() {
             Contexto contexto = new Contexto();
 
             List<Estudiante> estudiantes = new List<Estudiante>();
+            await Task.Delay(01); //Para dar tiempo a renderizar el mensaje de carga
 
             try {
-                estudiantes = contexto.Estudiantes.ToList<Estudiante>();
+                estudiantes = await contexto.Estudiantes.ToListAsync();
 
             } catch (Exception) {
 
                 throw;
             } finally {
-                contexto.Dispose();
+                await contexto.DisposeAsync();
             }
 
             return estudiantes;

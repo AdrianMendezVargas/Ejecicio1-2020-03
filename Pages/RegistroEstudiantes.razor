@@ -11,40 +11,45 @@
             <option value="3">Semestre</option>
             <option value="4">Nacionalidad</option>
         </select>
-        <input type="@(indexSelect == 1 ? "number" : "text")" @bind="criterioDeBusqueda"/>
+        <input type="@((indexSelect == 1 || indexSelect == 3 ) ? "number" : "text")" @bind="criterioDeBusqueda" />
         <button class="btn btn-outline-primary" @onclick="FiltarEstudiantes">Buscar</button>
     </div>
 </div>
 
 
-<table class="table table-hover">
-    <thead class="thead-light">
-        <tr>
-            <th>Id</th>
-            <th>Nombres</th>
-            <th>Semestre</th>
-            <th>Nacionalidad</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var estudiante in EstudiantesFiltrados) {
+@if (Estudiantes == null || EstudiantesFiltrados == null) {
+    <div class="loading-message">
+        <span>Cargando...</span>
+    </div>
+} else { 
+    <table class="table table-hover">
+        <thead class="thead-light">
             <tr>
-                <td>@estudiante.EstudianteId</td>
-                <td>@estudiante.Nombres</td>
-                <td>@estudiante.Semestre</td>
-                <td>@estudiante.Nacionalidad</td>
-                <td><button class="btn btn-warning" @onclick="()=>ModificarEstudiante(estudiante)">Mas</button></td>
+                <th>Id</th>
+                <th>Nombres</th>
+                <th>Semestre</th>
+                <th>Nacionalidad</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var estudiante in EstudiantesFiltrados) {
+                <tr>
+                    <td>@estudiante.EstudianteId</td>
+                    <td>@estudiante.Nombres</td>
+                    <td>@estudiante.Semestre</td>
+                    <td>@estudiante.Nacionalidad</td>
+                    <td><button class="btn btn-warning" @onclick="()=>ModificarEstudiante(estudiante)">Mas</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @if (MostraDialogoEditor) {
-    <DialogoEditorEstudiantes 
-                       estudiante="estudianteEnModificacion"
-                       OnClose="OcultarDialogo"
-                       EsNuevoEstudiante="esNuevo"/>
+    <DialogoEditorEstudiantes estudiante="estudianteEnModificacion"
+                              OnClose="OcultarDialogo"
+                              EsNuevoEstudiante="esNuevo" />
 }
 
 
@@ -62,8 +67,8 @@
     public List<Estudiante> Estudiantes { get; set; }
     public List<Estudiante> EstudiantesFiltrados { get; set; }
 
-    protected override void OnInitialized() {
-        Estudiantes = EstudiantesBLL.GetEstudiantes();
+    protected async override Task OnInitializedAsync() {
+        Estudiantes = await EstudiantesBLL.GetEstudiantes();
         EstudiantesFiltrados = Estudiantes;
     }
 
@@ -79,9 +84,16 @@
         MostraDialogoEditor = true;
     }
 
-    void OcultarDialogo() {
+    async Task OcultarDialogo() {
         MostraDialogoEditor = false;
-        Estudiantes = EstudiantesBLL.GetEstudiantes();
+        Estudiantes = await EstudiantesBLL.GetEstudiantes();
+        QuitarFiltros();
+    }
+
+    void QuitarFiltros() {
+        indexSelect = 0;
+        criterioDeBusqueda = "";
+        FiltarEstudiantes();
     }
 
     void FiltarEstudiantes() {
