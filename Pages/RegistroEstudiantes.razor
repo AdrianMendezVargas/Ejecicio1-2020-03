@@ -1,0 +1,74 @@
+@page "/estudiantes"
+
+<div class="main-header-list">
+    <h2>Lista de estudiante</h2>
+    <button type="button" class="btn btn-success" @onclick="AgregarEstudiante">+ Agregar</button>
+</div>
+
+
+<table class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Id</th>
+            <th>Nombres</th>
+            <th>Semestre</th>
+            <th>Nacionalidad</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var estudiante in Estudiantes) {
+            <tr>
+                <td>@estudiante.EstudianteId</td>
+                <td>@estudiante.Nombres</td>
+                <td>@estudiante.Semestre</td>
+                <td>@estudiante.Nacionalidad</td>
+                <td><button class="btn btn-warning" @onclick="()=>ModificarEstudiante(estudiante)">Mas</button></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (MostraDialogoEditor) {
+    <EditorEstudiantes estudiante="estudianteEnModificacion"
+                       OnClose="OcultarDialogo"
+                       EsNuevoEstudiante="esNuevo"/>
+}
+
+
+
+@code {
+
+    bool MostraDialogoEditor = false;
+    bool esNuevo = false;
+
+
+    Estudiante estudianteEnModificacion = new Estudiante();
+
+    public List<Estudiante> Estudiantes { get; set; }
+
+    void ModificarEstudiante(Estudiante estudiante) {
+        estudianteEnModificacion = estudiante;
+        esNuevo = false;
+        MostraDialogoEditor = true;
+    }
+
+    void AgregarEstudiante() {
+        estudianteEnModificacion = new Estudiante();
+        esNuevo = true;
+        MostraDialogoEditor = true;
+    }
+
+    void OcultarDialogo() {
+        MostraDialogoEditor = false;
+        Estudiantes = EstudiantesBLL.GetEstudiantes();
+    }
+
+    protected override void OnInitialized() {
+        Estudiantes = EstudiantesBLL.GetEstudiantes();
+    }
+
+
+
+}

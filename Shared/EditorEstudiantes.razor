@@ -1,0 +1,62 @@
+@inject IToastService toast
+
+<div class="dialog-container">
+    <div class="dialog">
+        <EditForm Model="estudiante" OnValidSubmit="Guardar">
+            <div class="dialog-title">
+                <h2 id="title-r-estudiantes">@(EsNuevoEstudiante ? "Nuevo estudiante" : "Editar estudiante")</h2>
+            </div>
+            <div class="dialog-body">
+
+                <FieldsEstudiante Estudiante="estudiante" />
+
+            </div>
+            <div class="dialog-buttons">
+                <button type="button" class="btn btn-dark" @onclick="OnClose">Cancelar</button>
+                <button type="button" disabled="@(!EsNuevoEstudiante)" class="btn btn-warning" @onclick="Nuevo">Nuevo</button>
+                <input type="submit" class="btn btn-success" value="Guardar" />
+                <button type="button" class="btn btn-danger" @onclick="Eliminar">Eliminar</button>
+            </div>
+            <DataAnnotationsValidator />
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public Estudiante estudiante { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    [Parameter] public bool EsNuevoEstudiante { get; set; } // Para saber si va a editar o modificar
+
+    void Nuevo() {
+        estudiante = new Estudiante();
+    }
+    void Guardar() {
+
+
+        bool guardo;
+
+        guardo = EstudiantesBLL.Guardar(estudiante);
+
+        if (guardo) {
+            toast.ShowSuccess("Guardado ");
+            Nuevo();
+            OnClose.InvokeAsync(new { });
+        } else
+            toast.ShowError("Error al guardar");
+    }
+
+    public void Eliminar() {
+        bool eliminado;
+
+        eliminado = EstudiantesBLL.Eliminar(estudiante.EstudianteId);
+
+        if (eliminado) {
+            toast.ShowSuccess("Eliminado");
+            Nuevo();
+            OnClose.InvokeAsync(new { });
+        } else
+            toast.ShowError("Error al eliminar");
+    }
+
+}
