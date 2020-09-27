@@ -1,0 +1,12 @@
+﻿@typeparam T
+<EditForm @attributes="Attributes" Model="Model" OnValidSubmit="OnValidSubmit">
+    @Fields
+    <DataAnnotationsValidator/>
+</EditForm>
+
+@code {
+    [Parameter] public RenderFragment Fields { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public T Model { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, Object> Attributes { get; set; }
+}

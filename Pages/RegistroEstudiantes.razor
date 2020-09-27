@@ -1,8 +1,9 @@
 @page "/estudiantes"
+@inject IToastService toast
 
 <div class="main-header-list">
     <h2>Lista de estudiante</h2>
-    <button type="button" class="btn btn-success" @onclick="AgregarEstudiante">+ Agregar</button>
+    <button type="button" class="btn btn-success" @onclick="BotonAgregarEstudiante">+ Agregar</button>
     <div class="filter">
         <select class="custom-select" @bind="indexSelect">
             <option value="0">Filtrar por</option>
@@ -21,7 +22,7 @@
     <div class="loading-message">
         <span>Cargando...</span>
     </div>
-} else { 
+} else {
     <table class="table table-hover">
         <thead class="thead-light">
             <tr>
@@ -39,7 +40,7 @@
                     <td>@estudiante.Nombres</td>
                     <td>@estudiante.Semestre</td>
                     <td>@estudiante.Nacionalidad</td>
-                    <td><button class="btn btn-warning" @onclick="()=>ModificarEstudiante(estudiante)">Mas</button></td>
+                    <td><button class="btn btn-warning" @onclick="()=>BotonModificarEstudiante(estudiante)">Mas</button></td>
                 </tr>
             }
         </tbody>
@@ -47,9 +48,22 @@
 }
 
 @if (MostraDialogoEditor) {
-    <DialogoEditorEstudiantes estudiante="estudianteEnModificacion"
-                              OnClose="OcultarDialogo"
-                              EsNuevoEstudiante="esNuevo" />
+
+    Title = EsNuevoEstudiante ? "Nuevo Estudiante" : "Modificar Estidiante";
+
+    <Dialogo Title="@Title" OnClose="OcultarDialogo">
+        <Body>
+            <EditForm id="form-estudiantes" Model="estudianteEnModificacion" OnValidSubmit="Guardar">
+                <FieldsEstudiante Estudiante="estudianteEnModificacion" />
+                <DataAnnotationsValidator/>
+            </EditForm>
+        </Body>
+        <Footer>
+            <button type="button" disabled="@(!EsNuevoEstudiante)" class="btn btn-warning" @onclick="Nuevo">Nuevo</button>
+            <input type="submit" form="form-estudiantes" class="btn btn-success" value="Guardar" />
+            <button type="button" disabled="@(EsNuevoEstudiante)" class="btn btn-danger" @onclick="Eliminar">Eliminar</button>
+        </Footer>
+    </Dialogo>
 }
 
 
@@ -57,7 +71,8 @@
 @code {
 
     bool MostraDialogoEditor = false;
-    bool esNuevo = false;
+    bool EsNuevoEstudiante;
+    string Title;
 
     int indexSelect = 0; //indice actual del select
     string criterioDeBusqueda;
@@ -72,15 +87,15 @@
         EstudiantesFiltrados = Estudiantes;
     }
 
-    void ModificarEstudiante(Estudiante estudiante) {
+    void BotonModificarEstudiante(Estudiante estudiante) {
         estudianteEnModificacion = estudiante;
-        esNuevo = false;
+        EsNuevoEstudiante = false;
         MostraDialogoEditor = true;
     }
 
-    void AgregarEstudiante() {
-        estudianteEnModificacion = new Estudiante();
-        esNuevo = true;
+    void BotonAgregarEstudiante() {
+        Nuevo();
+        EsNuevoEstudiante = true;
         MostraDialogoEditor = true;
     }
 
@@ -122,10 +137,41 @@
 
         } else if (indexSelect == 4) {//Nacionalidad
 
-            EstudiantesFiltrados = Estudiantes.Where(e => e.Nacionalidad == criterioDeBusqueda).ToList();
+            EstudiantesFiltrados = Estudiantes.Where(e => e.Nacionalidad.ToLower().Contains(criterioDeBusqueda.ToLower())).ToList();
 
         }
 
+    }
+
+    void Nuevo() {
+        estudianteEnModificacion = new Estudiante();
+    }
+    async Task Guardar() {
+
+
+        bool guardo;
+
+        guardo = await EstudiantesBLL.Guardar(estudianteEnModificacion);
+
+        if (guardo) {
+            toast.ShowSuccess("Guardado ");
+            Nuevo();
+            await OcultarDialogo();
+        } else
+            toast.ShowError("Error al guardar");
+    }
+
+    async Task Eliminar() {
+        bool eliminado;
+
+        eliminado = await EstudiantesBLL.Eliminar(estudianteEnModificacion.EstudianteId);
+
+        if (eliminado) {
+            toast.ShowSuccess("Eliminado");
+            Nuevo();
+            await OcultarDialogo();
+        } else
+            toast.ShowError("Error al eliminar");
     }
 
 
